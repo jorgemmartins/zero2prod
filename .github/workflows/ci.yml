@@ -4,6 +4,7 @@ on:
     branches: ["master"]
   push:
     branches: ["master"]
+  workflow_dispatch:
 
 jobs:
   ci:
@@ -12,6 +13,11 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v6
+
+      - name: Setup CI Dependencies
+        run: |
+          cargo install cargo-llvm-cov
+          cargo install cargo-audit
 
       - name: Test
         run: |

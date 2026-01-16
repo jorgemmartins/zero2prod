@@ -1,10 +1,13 @@
-use std::net::TcpListener;
 use reqwest::StatusCode;
+use std::net::TcpListener;
 use zero2prod::run;
 
 fn spawn_app() -> String {
     let listener = TcpListener::bind("127.0.0.1:0").expect("Failed to bind to test port");
-    let port = listener.local_addr().expect("Unable to get address of server").port();
+    let port = listener
+        .local_addr()
+        .expect("Unable to get address of server")
+        .port();
     let server = run(listener).expect("Failed to start server");
 
     let _ = tokio::spawn(server);

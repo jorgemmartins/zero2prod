@@ -4,12 +4,15 @@ on:
     branches: ["master"]
   push:
     branches: ["master"]
-  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
 
 jobs:
   ci:
     name: CI Rust
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v6

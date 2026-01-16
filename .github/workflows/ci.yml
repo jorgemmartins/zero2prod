@@ -1,0 +1,34 @@
+name: CI Rust
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+
+jobs:
+  ci:
+    name: CI Rust
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+
+      - name: Test
+        run: |
+          cargo test
+
+      - name: Coverage Check
+        run: |
+          cargo llvm-cov
+
+      - name: Linting
+        run: |
+          cargo clippy -- -D warnings
+
+      - name: Formatting
+        run: |
+          cargo fmt --check
+
+      - name: Security audit
+        run: |
+          cargo audit
